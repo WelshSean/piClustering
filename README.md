@@ -13,6 +13,12 @@ This can be used to build the docker images necessary to run the test app
 docker build -t welshsean/testapp:latest .
 ```
 
+### build the image for Raspberry Pi
+
+```
+sudo docker build -t welshsean/testapp:latest --file Dockerfile.ARM .
+```
+
 ### Run the image as a Daemon
 
 Note that you need to pass AWS region and AWS access key details

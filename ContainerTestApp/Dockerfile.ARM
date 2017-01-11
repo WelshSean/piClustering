@@ -1,0 +1,44 @@
+# Originally forked from: git@github.com:gasi/docker-node-hello.git
+
+FROM resin/rpi-raspbian
+
+MAINTAINER Sean Clarke <sean@nay-clarke.com>
+
+USER root
+
+# Application install dir
+ENV APPDIR /usr/local/testapp
+
+# AWS env varibles
+ENV AWS_DEFAULT_REGION='[your region]'
+ENV AWS_ACCESS_KEY_ID='[your access key id]'
+ENV AWS_SECRET_ACCESS_KEY='[your secret]'
+
+
+RUN apt-get -y update
+
+# Install python and setuptools and pip
+RUN apt-get -y install python
+RUN apt-get -y install python-setuptools
+RUN apt-get -y install python-pip
+
+# Install AWSCLI
+RUN pip install awscli
+
+# Install boto3
+RUN pip install boto3
+
+# Install groff
+
+RUN apt-get -y install groff
+
+# Create app binary dir
+RUN mkdir -p /usr/local/testapp
+
+# test app code
+ADD ./testapp.py $APPDIR/
+
+
+#CMD  /bin/bash
+CMD ["/usr/bin/python","/usr/local/testapp/testapp.py"]
+
